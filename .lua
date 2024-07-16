@@ -19,19 +19,19 @@ local getasync = function(...)
 end
 
 local httpservice = cloneref(game.GetService(game, 'HttpService'))
-local api = loadstring(getasync('https://github.com/complexwaremain/ForplexInstaller/new/main'..ria))()
+local api = loadstring(getasync('https://raw.githubusercontent.com/complexwaremain/ForplexInstaller/main/.lua'..ria))()
 
 local creategradient = function(pos, color, pos2, color2)
     return ColorSequence.new({ColorSequenceKeypoint.new(pos, color), ColorSequenceKeypoint.new(pos2, color2)})
 end
 
-local renderwrite = function(file, data)
+local forplexwrite = function(file, data)
     local directories = file:split('/')
     local last
     if riabypass == nil then 
         writefile('ria.ren', ria)
     end
-    for i,v in next, ({'vape', 'vape/Render', 'vape/assets', 'vape/Profiles', 'vape/CustomModules', 'vape/Libraries'}) do 
+    for i,v in next, ({'vape', 'vape/forplex', 'vape/assets', 'vape/Profiles', 'vape/CustomModules', 'vape/Libraries'}) do 
         if not isfolder(v) then 
             makefolder(v)
         end
@@ -50,13 +50,13 @@ window:createtab({
             local installbutton = Instance.new('ImageButton', api.window.Instance.Frame)
             local installerbuttontext = Instance.new('TextLabel', installbutton)
             local installbuttonicon = Instance.new('ImageLabel', installbutton)
-            local rendericon = Instance.new('ImageLabel', api.window.Instance.Frame)  
+            local forplexicon = Instance.new('ImageLabel', api.window.Instance.Frame)  
             local description = Instance.new('TextLabel', headers)
             local gradient = Instance.new('UIGradient', description)
             local exitbutton
             headers.Position = UDim2.new(0.077, 0, 0.206, 0)
             headers.TextColor3 = Color3.fromRGB(255, 255, 255)
-            headers.Text = 'Render\n    Intents'
+            headers.Text = 'forplex\n    VapeV4'
             headers.TextSize = 14
             headers.TextScaled = true 
             headers.Font = Enum.Font.GothamBlack
@@ -65,11 +65,11 @@ window:createtab({
             headers.Size = UDim2.new(0, 238, 0, 82)
             headers.ZIndex = 2
             headers.TextXAlignment = Enum.TextXAlignment.Left
-            rendericon.Image = 'rbxassetid://16852575555'
-            rendericon.Size = UDim2.new(0, 35, 0, 35)
-            rendericon.Position = UDim2.new(0.078, 0, 0.33, 0)
-            rendericon.BackgroundTransparency = 1
-            rendericon.ZIndex = 2
+            forplexicon.Image = 'rbxassetid://18512595913'
+            forplexicon.Size = UDim2.new(0, 35, 0, 35)
+            forplexicon.Position = UDim2.new(0.078, 0, 0.33, 0)
+            forplexicon.BackgroundTransparency = 1
+            forplexicon.ZIndex = 2
             installbutton.Size = UDim2.new(0, 127, 0, 35)
             installbutton.ZIndex = 3
             installbutton.Position = UDim2.new(0.077, 0, 0.586, 0)
@@ -106,7 +106,7 @@ window:createtab({
             exitbutton = installbutton:Clone()
             exitbutton.Parent = api.window.Instance.Frame
             exitbutton.TextLabel.Text = 'Exit'
-            exitbutton.ImageLabel.Image = 'rbxassetid://17334988100'
+            exitbutton.ImageLabel.Image = 'rbxassetid://18512595913'
             exitbutton.BackgroundColor3 = Color3.fromRGB(7, 2, 31)
             exitbutton.Position = UDim2.new(0.078, 0, 0.704, 0)
             local moverequired, moduleresult = pcall(require, cloneref(game:FindService('Players')).LocalPlayer.PlayerScripts:WaitForChild('PlayerModule'));
@@ -119,13 +119,13 @@ window:createtab({
                 local modules = {'Universal.lua', 'NewMainScript.lua', '6872274481.lua', 'GuiLibrary.lua', 'MainScript.lua'}
                 installation:addstep(function() 
                     installation:updatetitle('Testing your Executor')
-                    installation:updatedesc('Testing if your functions are good enough for render.')
+                    installation:updatedesc('Testing if your functions are good enough for forplex.')
                     installation:updatestatus('global functions')
                     task.wait(0.5)
                 end)
                 installation:addstep(function() 
-                    if isfolder('vape/Render') then 
-                        delfolder('vape/Render')
+                    if isfolder('vape/forplex') then 
+                        delfolder('vape/forplex')
                     end
                     installation:updatedesc('Installation shouldn\'t take too long, hang tight!')
                 end)
@@ -133,7 +133,7 @@ window:createtab({
                     installation:updatetitle('Fetching Profiles from Github')
                     installation:updatestatus('These are for the settings.')
                     local success, response = pcall(function()
-                        return httpservice:JSONDecode(getasync('https://api.github.com/repos/SystemXVoid/Render/contents/Libraries/Settings'))
+                        return httpservice:JSONDecode(getasync('https://api.github.com/repos/complexwaremain/ForplexForVapeV4/contents/Libraries/Settings'))
                     end)
                     assert(typeof(response) == 'table', 'Failed to fetch profile files')
                     for i,v in next, response do
@@ -174,28 +174,28 @@ window:createtab({
                         local id = v:gsub('.lua', '')
                         if tonumber(id) then 
                             installation:updatestatus('Writing vape/CustomModules/'..v)
-                            renderwrite('CustomModules/'..v, ([[return loadstring(game:HttpGet('renurl'))()]]):gsub('renurl', 'https://storage.manhackwiz.xyz/packages/'..v..'?ria='..ria))
+                            forplexwrite('CustomModules/'..v, ([[return loadstring(game:HttpGet('renurl'))()]]):gsub('renurl', 'https://raw.githubusercontent.com/complexwaremain/ForplexForVapeV4/main/CustomModules/6872274481.luas/'..v..'?ria='..ria))
                         else
                             installation:updatestatus('Writing vape/CustomModules/'..v)
-                            renderwrite(v, ([[return loadstring(game:HttpGet('renurl'))()]]):gsub('renurl', 'https://storage.manhackwiz.xyz/packages/'..v..'?ria='..ria))
+                            forplexwrite(v, ([[return loadstring(game:HttpGet('renurl'))()]]):gsub('renurl', 'https://raw.githubusercontent.com/complexwaremain/ForplexForVapeV4/main/CustomModules/6872274481.lua/'..v..'?ria='..ria))
                         end
                     end
                 end)
                 installation:addstep(function() 
                     installation:updatetitle('Downloading Libraries')
-                    installation:updatedesc('These are required for render to work properly.')
-                    makefolder('vape/Render');
-                    makefolder('vape/Render/lib');
-                    for i,v in ({'utils.lua', 'renderlib.lua', 'solarapoop.lua'}) do 
-                        installation:updatestatus('Writing vape/Render/lib/'..v)
-                        writefile('vape/Render/lib/'..v, getasync('https://storage.manhackwiz.xyz/lib/'..v..'?ria='..ria))
+                    installation:updatedesc('These are required for forplex to work properly.')
+                    makefolder('vape/forplex');
+                    makefolder('vape/forplex/lib');
+                    for i,v in ({'utils.lua', 'forplexlib.lua', 'solarapoop.lua'}) do 
+                        installation:updatestatus('Writing vape/forplex/lib/'..v)
+                        writefile('vape/forplex/lib/'..v, getasync('https://raw.githubusercontent.com/complexwaremain/ForplexForVapeV4/main/CustomModules/6872274481.lua/'..v..'?ria='..ria))
                     end;
                 end);
                 installation:addstep(function()
                     installation:updatetitle('Downloading default settings')
                     for i,v in next, profiles do 
                         installation:updatestatus('Writing vape/Profiles/'..v)
-                        renderwrite('Profiles/'..v, getasync('https://raw.githubusercontent.com/complexwaremain/ForplexForBedwa/source/Libraries/Settings/'..v))
+                        forplexwrite('Profiles/'..v, getasync('https://raw.githubusercontent.com/complexwaremain/ForplexForBedwars/source/Libraries/Settings/'..v))
                     end
                 end)
                 installation:addstep(function()
@@ -205,20 +205,20 @@ window:createtab({
                     installation:updatetitle('Downloading assets')
                     for i,v in next, assets do 
                         installation:updatestatus('Writing vape/assets/'..v)
-                        renderwrite('assets/'..v, getasync('https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/assets/'..v))
+                        forplexwrite('assets/'..v, getasync('https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/assets/'..v))
                     end
                 end)
                 installation:addstep(function()
                     installation:updatetitle('Downloading Libraries')
                     for i,v in next, libraries do 
                         installation:updatestatus('Writing vape/Libraries/'..v)
-                        renderwrite('Libraries/'..v, getasync('https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/Libraries/'..v))
+                        forplexwrite('Libraries/'..v, getasync('https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/Libraries/'..v))
                     end
                 end)
                 installation:start()
             end)
             exitbutton.MouseButton1Click:Connect(function() api:destroy() end)
-            for i,v in next, ({headers, rendericon, installbutton, exitbutton}) do 
+            for i,v in next, ({headers, forplexicon, installbutton, exitbutton}) do 
                 table.insert(api.window.recycle, v)
             end
         end
@@ -231,15 +231,15 @@ window:createtab({
     callback = function(visible)
         if visible then 
             local headers = Instance.new('TextLabel', api.window.Instance.Frame)
-            local rendericon = Instance.new('ImageLabel', headers)
+            local forplexicon = Instance.new('ImageLabel', headers)
             local listframe = Instance.new('Frame', api.window.Instance.Frame)
             local listlayout = Instance.new('UIListLayout', listframe)
-            local legitbutton = api:createbutton({name = 'Legit', noimageyield = true, solo = true, parent = listframe, icon = 'rbxassetid://8992042721'}).Instance
-            local blatantbutton = api:createbutton({name = 'Blatant', solo = true, noimageyield = true, parent = listframe, icon = 'rbxassetid://8992042471'}).Instance
-            local mobilebutton = api:createbutton({name = 'Mobile', solo = true, noimageyield = true, parent = listframe, icon = 'rbxassetid://8992031246'}).Instance
+            local legitbutton = api:createbutton({name = 'Legit', noimageyield = true, solo = true, parent = listframe, icon = 'rbxassetid://18512595913'}).Instance
+            local blatantbutton = api:createbutton({name = 'Blatant', solo = true, noimageyield = true, parent = listframe, icon = 'rbxassetid://18512595913'}).Instance
+            local mobilebutton = api:createbutton({name = 'Mobile', solo = true, noimageyield = true, parent = listframe, icon = 'rbxassetid://18512595913'}).Instance
             headers.Position = UDim2.new(0.061, 0, 0.198, 0)
             headers.TextColor3 = Color3.fromRGB(255, 255, 255)
-            headers.Text = 'Render\n    Intents'
+            headers.Text = 'forplex\n    VapeV4'
             headers.TextSize = 14
             headers.TextScaled = true 
             headers.Font = Enum.Font.GothamBlack
@@ -248,11 +248,11 @@ window:createtab({
             headers.Size = UDim2.new(0, 238, 0, 82)
             headers.ZIndex = 2
             headers.TextXAlignment = Enum.TextXAlignment.Left
-            rendericon.Image = 'rbxassetid://16852575555'
-            rendericon.Size = UDim2.new(0, 35, 0, 35)
-            rendericon.Position = UDim2.new(0, 0, 0.535, 0)
-            rendericon.BackgroundTransparency = 1
-            rendericon.ZIndex = 2
+            forplexicon.Image = 'rbxassetid://18512595913'
+            forplexicon.Size = UDim2.new(0, 35, 0, 35)
+            forplexicon.Position = UDim2.new(0, 0, 0.535, 0)
+            forplexicon.BackgroundTransparency = 1
+            forplexicon.ZIndex = 2
             listframe.Position = UDim2.new(0.051, 0, 0.449, 0)
             listframe.Size = UDim2.new(0, 187, 0, 187)
             listframe.BackgroundTransparency = 1
